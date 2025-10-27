@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12週間完全ワークアウトプラン</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .phase-selector {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .phase-selector h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .phase-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .phase-btn {
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            background: white;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #667eea;
+        }
+
+        .phase-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .phase-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .week-info {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .week-info h2 {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .info-card .label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-card .value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .phase-content {
+            display: none;
+        }
+
+        .phase-content.active {
+            display: block;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .day-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .day-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .badge-swim {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .badge-gym-lower {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .badge-gym-upper {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .badge-gym-full {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .badge-recovery {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .workout-section {
+            margin-bottom: 20px;
+        }
+
+        .workout-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .exercise-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+
+        .exercise-checkbox {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .exercise-content {
+            flex: 1;
+        }
+
+        .exercise-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .exercise-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .exercise-detail {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .weight-input {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .weight-label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .weight-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.85em;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .swim-set {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .swim-set-title {
+            font-weight: 600;
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+
+        .swim-set-detail {
+            font-size: 0.9em;
+            color: #333;
+            padding-left: 15px;
+        }
+
+        .stretch-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .stretch-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stretch-detail {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .save-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .save-status.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .phase-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏊‍♀️💪 12週間 毎日ジム習慣プログラム</h1>
+            <div class="subtitle">目標: -10kg | 水泳週3回 + 筋トレ週3回 + リカバリー</div>
+        </div>
+
+        <div class="phase-selector">
+            <h3>📅 期間を選択</h3>
+            <div class="phase-buttons">
+                <button class="phase-btn active" onclick="switchPhase('phase1')">Week 1-4<br>基礎構築</button>
+                <button class="phase-btn" onclick="switchPhase('phase2')">Week 5-8<br>習慣化</button>
+                <button class="phase-btn" onclick="switchPhase('phase3')">Week 9-12<br>定着&加速</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn save-btn" onclick="saveProgress()">💾 保存</button>
+            <button class="control-btn reset-btn" onclick="resetProgress()">🔄 リセット</button>
+        </div>
+
+        <!-- Phase 1: Week 1-4 -->
+        <div id="phase1" class="phase-content active">
+            <div class="week-info">
+                <h2>📊 Week 1-4：基礎構築</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="label">週間運動時間</div>
+                        <div class="value">6-6.5時間</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">完全休養日</div>
+                        <div class="value">なし</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">水泳</div>
+                        <div class="value">週3回</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">筋トレ</div>
+                        <div class="value">週3回</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 月曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">月曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳A</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - クロール中心（40-50分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,000m | <strong>ペース:</strong> ゆっくり | <strong>100m毎:</strong> 30秒-1分休憩
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット（ゆっくり）</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（600m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 6セット<br>• 各セット後30秒-1分休憩</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• クロール or 平泳ぎ 100m × 2セット（超ゆっくり）</div>
+                    </div>
+
+                    <div class="note">💡 疲れたら平泳ぎに切り替えてOK。完走を優先！</div>
+                </div>
+            </div>
+
+            <!-- 火曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">火曜日（9:00）</div>
+                    <div class="day-badge badge-gym-lower">💪 下半身</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 下半身デー（70-80分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #fff3cd; border-left-color: #ffc107;">
+                        <strong>筋トレ:</strong> 50-60分 | <strong>有酸素:</strong> 20分 | <strong>RPE:</strong> 7-8
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 大腿四頭筋・臀部</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 50kg" data-phase="1" data-day="tue" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> ハムストリング</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 30kg" data-phase="1" data-day="tue" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. レッグエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 大腿四頭筋</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 25kg" data-phase="1" data-day="tue" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 腹直筋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. バックエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 脊柱起立筋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. スタンディングカーフレイズ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> ふくらはぎ</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. ロータリートーソ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15/側</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 腹斜筋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（20分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="tue" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 20分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 3-5%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5-6km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 5-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 水曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">水曜日（9:00）</div>
+                    <div class="day-badge badge-recovery">🧘 リカバリー</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🧘 リカバリーデー（30-40分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #ffecd2; border-left-color: #fcb69f;">
+                        <strong>💡 重要:</strong> とにかく楽に！心身のリセットが目的です。
+                    </div>
+
+                    <h4>🏃 有酸素運動（15分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="wed" data-exercise="warmup">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. ウォーミングアップ（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="wed" data-exercise="main">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. メインウォーキング（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 2%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="wed" data-exercise="cooldown">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. クールダウン（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 3-4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🧘 ストレッチ（15分）</h4>
+                    <div class="stretch-item">
+                        <div class="stretch-name">1. チャイルドポーズ（2分）</div>
+                        <div class="stretch-detail">正座から前に倒れる - 背中・肩のリラックス</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">2. キャットカウ（10回）</div>
+                        <div class="stretch-detail">四つん這いで背中を丸める・反らす - 背骨の柔軟性向上</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">3. ハムストリングストレッチ（1分×2）</div>
+                        <div class="stretch-detail">座って前屈、裏ももを伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">4. ヒップフレクサー（1分/側）</div>
+                        <div class="stretch-detail">ランジ姿勢で股関節を伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">5. 肩甲骨ストレッチ（1分）</div>
+                        <div class="stretch-detail">両手を組んで前に伸ばす - 肩こり改善</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">6. 開脚前屈（2分）</div>
+                        <div class="stretch-detail">座って足を開き前屈 - 内ももストレッチ</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">7. 仰向けツイスト（1分/側）</div>
+                        <div class="stretch-detail">仰向けで膝を横に倒す - 腰・脇腹のリラックス</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 木曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">木曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳B</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - バリエーション（45-55分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,000-1,100m | <strong>クロール+平泳ぎ</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（700m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 4セット<br>• 平泳ぎ 100m × 3セット<br>• 交互に実施、各セット後1分休憩</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 好きな泳ぎ方で 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 平泳ぎでフォームの練習も意識しましょう！</div>
+                </div>
+            </div>
+
+            <!-- 金曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">金曜日（9:00）</div>
+                    <div class="day-badge badge-gym-upper">💪 上半身</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 上半身デー（70-80分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e0f2f1; border-left-color: #00897b;">
+                        <strong>筋トレ:</strong> 50-60分 | <strong>有酸素:</strong> 20分 | <strong>RPE:</strong> 7-8
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 大胸筋</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 30kg" data-phase="1" data-day="fri" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 広背筋</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 35kg" data-phase="1" data-day="fri" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 三角筋</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 20kg" data-phase="1" data-day="fri" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. シーテッドロウ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 僧帽筋・広背筋</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 30kg" data-phase="1" data-day="fri" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. ペックフライ/リアデルト</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 胸・肩後部</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 25kg" data-phase="1" data-day="fri" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">対象:</span> 腹直筋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（20分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="fri" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 20分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 3-5%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5-6km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 5-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 土曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">土曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳C</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - 自由に楽しく（50-60分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,200m | <strong>自由に楽しむ！</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• 好きな泳ぎ方で 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（800m）</div>
+                        <div class="swim-set-detail">• クロール、平泳ぎ、背泳ぎなど自由に<br>• 100m × 8セット<br>• 疲れたらゆっくり、楽しく泳ぐ</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 超ゆっくり 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 週末は楽しむことを優先！水中ウォーキングもOK。</div>
+                </div>
+            </div>
+
+            <!-- 日曜日 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">日曜日（9:00）</div>
+                    <div class="day-badge badge-gym-full">💪 全身軽め</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 全身軽めデー（40-50分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>💡 重要:</strong> 重量は通常の50% | RPE 5-6（回復重視）
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 25kg" data-phase="1" data-day="sun" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 15kg" data-phase="1" data-day="sun" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 18kg" data-phase="1" data-day="sun" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 10kg" data-phase="1" data-day="sun" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 15kg" data-phase="1" data-day="sun" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 軽め</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="1" data-day="sun" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. バックエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 自重</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">💡 軽めの重量で回復を優先。翌週に備えて体をリセット。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2: Week 5-8 -->
+        <div id="phase2" class="phase-content">
+            <div class="week-info">
+                <h2>📊 Week 5-8：習慣化</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="label">週間運動時間</div>
+                        <div class="value">6-6.5時間</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">完全休養日</div>
+                        <div class="value">なし</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">水泳</div>
+                        <div class="value">週3回</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">筋トレ</div>
+                        <div class="value">週3回</div>
+                    </div>
+                </div>
+                <div class="note" style="margin-top: 15px;">
+                    <strong>Phase 2の特徴:</strong> Phase 1と同じ構造を維持しながら、強度と重量を少しずつ増やしていきます。習慣化に集中！
+                </div>
+            </div>
+
+            <!-- 月曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">月曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳A</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - クロール中心（40-50分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,000m | <strong>ペース:</strong> Week 1-4よりわずかに速く
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（600m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 6セット<br>• 各セット後30秒-1分休憩<br>• 少しペースアップを意識</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• クロール or 平泳ぎ 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 Phase 1で慣れた距離。フォームと呼吸を意識しながら泳ぎましょう。</div>
+                </div>
+            </div>
+
+            <!-- 火曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">火曜日（9:00）</div>
+                    <div class="day-badge badge-gym-lower">💪 下半身</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 下半身デー（70-80分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #fff3cd; border-left-color: #ffc107;">
+                        <strong>筋トレ:</strong> 50-60分 | <strong>有酸素:</strong> 20分 | <strong>RPE:</strong> 7-8<br>
+                        <strong>💪 重量UP:</strong> Phase 1より2-5kg増やしてみましょう！
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 55kg" data-phase="2" data-day="tue" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 33kg" data-phase="2" data-day="tue" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. レッグエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 28kg" data-phase="2" data-day="tue" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. バックエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6-7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. スタンディングカーフレイズ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. ロータリートーソ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15/側</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（20分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="tue" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 20分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 3-5%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5-6km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 5-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 水曜日 - Phase 2（Phase 1と同じ）-->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">水曜日（9:00）</div>
+                    <div class="day-badge badge-recovery">🧘 リカバリー</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🧘 リカバリーデー（30-40分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #ffecd2; border-left-color: #fcb69f;">
+                        <strong>💡 Phase 2でも変わらず:</strong> とにかく楽に！心身のリセットが目的です。
+                    </div>
+
+                    <h4>🏃 有酸素運動（15分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="wed" data-exercise="warmup">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. ウォーミングアップ（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="wed" data-exercise="main">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. メインウォーキング（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 2%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="wed" data-exercise="cooldown">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. クールダウン（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 3-4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🧘 ストレッチ（15分）</h4>
+                    <div class="stretch-item">
+                        <div class="stretch-name">1. チャイルドポーズ（2分）</div>
+                        <div class="stretch-detail">正座から前に倒れる</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">2. キャットカウ（10回）</div>
+                        <div class="stretch-detail">四つん這いで背中を丸める・反らす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">3. ハムストリングストレッチ（1分×2）</div>
+                        <div class="stretch-detail">座って前屈</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">4. ヒップフレクサー（1分/側）</div>
+                        <div class="stretch-detail">ランジ姿勢で股関節を伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">5. 肩甲骨ストレッチ（1分）</div>
+                        <div class="stretch-detail">両手を組んで前に伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">6. 開脚前屈（2分）</div>
+                        <div class="stretch-detail">座って足を開き前屈</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">7. 仰向けツイスト（1分/側）</div>
+                        <div class="stretch-detail">仰向けで膝を横に倒す</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 木曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">木曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳B</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - バリエーション（45-55分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,000-1,100m | <strong>クロール+平泳ぎ</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（700m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 4セット<br>• 平泳ぎ 100m × 3セット<br>• 交互に実施、各セット後1分休憩</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 好きな泳ぎ方で 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 Phase 2では泳ぎのフォームの質を意識しましょう！</div>
+                </div>
+            </div>
+
+            <!-- 金曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">金曜日（9:00）</div>
+                    <div class="day-badge badge-gym-upper">💪 上半身</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 上半身デー（70-80分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e0f2f1; border-left-color: #00897b;">
+                        <strong>筋トレ:</strong> 50-60分 | <strong>有酸素:</strong> 20分 | <strong>RPE:</strong> 7-8<br>
+                        <strong>💪 重量UP:</strong> Phase 1より2-5kg増やしてみましょう！
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 33kg" data-phase="2" data-day="fri" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 38kg" data-phase="2" data-day="fri" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 23kg" data-phase="2" data-day="fri" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. シーテッドロウ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 33kg" data-phase="2" data-day="fri" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. ペックフライ/リアデルト</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6-7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 28kg" data-phase="2" data-day="fri" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（20分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="fri" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 20分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 3-5%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5-6km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 5-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 土曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">土曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳C</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - 自由に楽しく（50-60分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,200m | <strong>自由に楽しむ！</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• 好きな泳ぎ方で 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（800m）</div>
+                        <div class="swim-set-detail">• クロール、平泳ぎ、背泳ぎなど自由に<br>• 100m × 8セット<br>• 疲れたらゆっくり、楽しく泳ぐ</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 超ゆっくり 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 Phase 2：習慣が身についてきました。楽しく泳ぎましょう！</div>
+                </div>
+            </div>
+
+            <!-- 日曜日 - Phase 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">日曜日（9:00）</div>
+                    <div class="day-badge badge-gym-full">💪 全身軽め</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 全身軽めデー（40-50分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>💡 重要:</strong> 重量は通常の50% | RPE 5-6（回復重視）
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 28kg" data-phase="2" data-day="sun" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 17kg" data-phase="2" data-day="sun" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 19kg" data-phase="2" data-day="sun" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 12kg" data-phase="2" data-day="sun" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の50%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 17kg" data-phase="2" data-day="sun" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 軽め</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="2" data-day="sun" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. バックエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 自重</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">💡 Phase 2終盤。習慣が定着してきましたね！</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3: Week 9-12 -->
+        <div id="phase3" class="phase-content">
+            <div class="week-info">
+                <h2>📊 Week 9-12：定着&加速</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="label">週間運動時間</div>
+                        <div class="value">7-7.5時間</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">完全休養日</div>
+                        <div class="value">なし</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">水泳</div>
+                        <div class="value">週3回</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">筋トレ</div>
+                        <div class="value">週3回</div>
+                    </div>
+                </div>
+                <div class="note" style="margin-top: 15px;">
+                    <strong>Phase 3の特徴:</strong> 最終段階！水泳距離増加、筋トレセット数増、有酸素時間延長。目標達成へラストスパート！
+                </div>
+            </div>
+
+            <!-- 月曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">月曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳A+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - 距離増加（50-60分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,200m | <strong>ペース:</strong> 安定したペースで
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（800m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 8セット<br>• 各セット後30秒-1分休憩<br>• 安定したペースを維持</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• クロール or 平泳ぎ 100m × 2セット（ゆっくり）</div>
+                    </div>
+
+                    <div class="note">💡 Phase 3：1,200mを安定して泳げるようになりましょう！</div>
+                </div>
+            </div>
+
+            <!-- 火曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">火曜日（9:00）</div>
+                    <div class="day-badge badge-gym-lower">💪 下半身+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 下半身デー（80-90分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #fff3cd; border-left-color: #ffc107;">
+                        <strong>筋トレ:</strong> 60-65分 | <strong>有酸素:</strong> 25分 | <strong>RPE:</strong> 8<br>
+                        <strong>🔥 最終段階:</strong> セット数増加＆ブルガリアンスクワット追加！
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 60kg" data-phase="3" data-day="tue" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 36kg" data-phase="3" data-day="tue" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. レッグエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 31kg" data-phase="3" data-day="tue" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. ブルガリアンスクワット（ダンベル）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 10/脚</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ ダンベル重量:</span>
+                                    <input type="text" placeholder="例: 5kg×2" data-phase="3" data-day="tue" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 8</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. バックエクステンション</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. スタンディングカーフレイズ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 20-25</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="8">
+                        <div class="exercise-content">
+                            <div class="exercise-name">8. ロータリートーソ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20/側</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（25分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="tue" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 25分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 4-6%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 6-6.5km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6-7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 水曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">水曜日（9:00）</div>
+                    <div class="day-badge badge-recovery">🧘 リカバリー</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🧘 リカバリーデー（40分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #ffecd2; border-left-color: #fcb69f;">
+                        <strong>💡 Phase 3:</strong> 時間延長でより丁寧なリカバリー
+                    </div>
+
+                    <h4>🏃 有酸素運動（20分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="wed" data-exercise="warmup">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. ウォーミングアップ（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="wed" data-exercise="main">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. メインウォーキング（10分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 5-5.5km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 2-3%</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="wed" data-exercise="cooldown">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. クールダウン（5分）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 3-4km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🧘 ストレッチ（20分）</h4>
+                    <div class="stretch-item">
+                        <div class="stretch-name">1. チャイルドポーズ（2.5分）</div>
+                        <div class="stretch-detail">正座から前に倒れる - じっくりリラックス</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">2. キャットカウ（15回）</div>
+                        <div class="stretch-detail">四つん這いで背中を丸める・反らす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">3. ハムストリングストレッチ（1.5分×2）</div>
+                        <div class="stretch-detail">座って前屈、深く伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">4. ヒップフレクサー（1.5分/側）</div>
+                        <div class="stretch-detail">ランジ姿勢で股関節を伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">5. 肩甲骨ストレッチ（1.5分）</div>
+                        <div class="stretch-detail">両手を組んで前に伸ばす</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">6. 開脚前屈（2.5分）</div>
+                        <div class="stretch-detail">座って足を開き前屈 - じっくり</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">7. 仰向けツイスト（1.5分/側）</div>
+                        <div class="stretch-detail">仰向けで膝を横に倒す</div>
+                    </div>
+
+                    <div class="stretch-item">
+                        <div class="stretch-name">8. フォームローラー（オプション）</div>
+                        <div class="stretch-detail">背中、お尻、太ももをほぐす</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 木曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">木曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳B+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - インターバル（55-65分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,300m | <strong>インターバルトレーニング導入</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（200m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 2セット（ゆっくり）</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（900m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 5セット（通常ペース）<br>• クロール 50m × 4セット（速めペース、30秒休憩）<br>• 平泳ぎ 100m × 2セット（リカバリー）</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 好きな泳ぎ方で 100m × 2セット（超ゆっくり）</div>
+                    </div>
+
+                    <div class="note">💡 Phase 3：インターバルで心肺機能向上！50mは速めに、その後しっかり休憩。</div>
+                </div>
+            </div>
+
+            <!-- 金曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">金曜日（9:00）</div>
+                    <div class="day-badge badge-gym-upper">💪 上半身+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 上半身デー（80-90分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e0f2f1; border-left-color: #00897b;">
+                        <strong>筋トレ:</strong> 60-65分 | <strong>有酸素:</strong> 25分 | <strong>RPE:</strong> 8<br>
+                        <strong>🔥 最終段階:</strong> セット数増加＆ワイドグリップラットプル追加！
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 90秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 36kg" data-phase="3" data-day="fri" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 41kg" data-phase="3" data-day="fri" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 26kg" data-phase="3" data-day="fri" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. シーテッドロウ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7-8</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 36kg" data-phase="3" data-day="fri" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. ペックフライ/リアデルト</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12-15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 31kg" data-phase="3" data-day="fri" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. ラットプルダウン（ワイドグリップ）</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 7</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 36kg" data-phase="3" data-day="fri" data-exercise="6-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 4</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15-20</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 8</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">🏃 有酸素運動（25分）</h4>
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="fri" data-exercise="cardio">
+                        <div class="exercise-content">
+                            <div class="exercise-name">トレッドミル・ウォーキング</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">時間:</span> 25分</div>
+                                <div class="exercise-detail"><span class="detail-label">傾斜:</span> 4-6%</div>
+                                <div class="exercise-detail"><span class="detail-label">速度:</span> 6-6.5km/h</div>
+                                <div class="exercise-detail"><span class="detail-label">RPE:</span> 6-7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 土曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">土曜日（9:00）</div>
+                    <div class="day-badge badge-swim">🏊 水泳C+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>🏊‍♀️ 水泳プログラム - ロングスイム（60-75分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>目標距離:</strong> 1,500-1,800m | <strong>長距離を楽しむ！</strong>
+                    </div>
+                    
+                    <div class="swim-set">
+                        <div class="swim-set-title">ウォーミングアップ（300m）</div>
+                        <div class="swim-set-detail">• クロール 100m × 3セット（ゆっくり）</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">メインセット（1,200-1,300m）</div>
+                        <div class="swim-set-detail">• クロール中心に自由に泳ぐ<br>• 100m毎に30秒-1分休憩<br>• 疲れたら平泳ぎや背泳ぎでリカバリー<br>• 距離は1,200mまたは1,300m（体調に合わせて）</div>
+                    </div>
+
+                    <div class="swim-set">
+                        <div class="swim-set-title">クールダウン（200m）</div>
+                        <div class="swim-set-detail">• 超ゆっくり 100m × 2セット</div>
+                    </div>
+
+                    <div class="note">💡 Phase 3最終段階：1,500-1,800mの達成感を味わいましょう！無理せず楽しく。</div>
+                </div>
+            </div>
+
+            <!-- 日曜日 - Phase 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-title">日曜日（9:00）</div>
+                    <div class="day-badge badge-gym-full">💪 全身軽め+</div>
+                </div>
+                <div class="workout-section">
+                    <h4>💪 ジムプログラム - 全身軽めデー（45-55分）</h4>
+                    <div class="note" style="margin-bottom: 15px; background: #e3f2fd; border-left-color: #2196f3;">
+                        <strong>💡 Phase 3:</strong> 重量は通常の60% | RPE 6（回復重視）
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="1">
+                        <div class="exercise-content">
+                            <div class="exercise-name">1. レッグプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 36kg" data-phase="3" data-day="sun" data-exercise="1-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="2">
+                        <div class="exercise-content">
+                            <div class="exercise-name">2. チェストプレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 22kg" data-phase="3" data-day="sun" data-exercise="2-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="3">
+                        <div class="exercise-content">
+                            <div class="exercise-name">3. ラットプルダウン</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 25kg" data-phase="3" data-day="sun" data-exercise="3-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="4">
+                        <div class="exercise-content">
+                            <div class="exercise-name">4. ショルダープレス</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 60秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 16kg" data-phase="3" data-day="sun" data-exercise="4-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="5">
+                        <div class="exercise-content">
+                            <div class="exercise-name">5. レッグカール</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 22kg" data-phase="3" data-day="sun" data-exercise="5-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="6">
+                        <div class="exercise-content">
+                            <div class="exercise-name">6. シーテッドロウ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 2</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 12</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 通常の60%</div>
+                                <div class="weight-input">
+                                    <span class="weight-label">⚖️ 重量:</span>
+                                    <input type="text" placeholder="例: 22kg" data-phase="3" data-day="sun" data-exercise="6-weight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <input type="checkbox" class="exercise-checkbox" data-phase="3" data-day="sun" data-exercise="7">
+                        <div class="exercise-content">
+                            <div class="exercise-name">7. アブドミナルクランチ</div>
+                            <div class="exercise-details">
+                                <div class="exercise-detail"><span class="detail-label">セット:</span> 3</div>
+                                <div class="exercise-detail"><span class="detail-label">回数:</span> 15</div>
+                                <div class="exercise-detail"><span class="detail-label">休憩:</span> 45秒</div>
+                                <div class="exercise-detail"><span class="detail-label">重量:</span> 軽め</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">💡 Phase 3最終週！12週間お疲れさまでした。次の週からも継続しましょう！</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="save-status" id="saveStatus">✅ 保存しました</div>
+
+    <script>
+        const STORAGE_KEY_PREFIX = 'workoutProgress';
+        const WEIGHT_KEY_PREFIX = 'workoutWeights';
+        let currentPhase = 'phase1';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            setupAutoSave();
+        });
+
+        function switchPhase(phase) {
+            // 現在のPhaseを保存してから切り替え
+            saveProgress();
+            
+            currentPhase = phase;
+            
+            // すべてのPhaseコンテンツを非表示
+            document.querySelectorAll('.phase-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // すべてのボタンのactiveクラスを削除
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 選択されたPhaseを表示
+            document.getElementById(phase).classList.add('active');
+            
+            // 対応するボタンにactiveクラスを追加
+            event.target.classList.add('active');
+            
+            // 新しいPhaseのデータを読み込み
+            loadProgress();
+            
+            // ページトップにスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setupAutoSave() {
+            // チェックボックスの自動保存
+            document.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    autoSave();
+                });
+            });
+
+            // 重量入力の自動保存
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.addEventListener('input', function() {
+                    autoSaveWeights();
+                });
+            });
+        }
+
+        function getStorageKey() {
+            return `${STORAGE_KEY_PREFIX}_${currentPhase}`;
+        }
+
+        function getWeightKey() {
+            return `${WEIGHT_KEY_PREFIX}_${currentPhase}`;
+        }
+
+        function autoSave() {
+            const progress = {};
+            const phaseElement = document.getElementById(currentPhase);
+            phaseElement.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
+                const key = `${checkbox.dataset.phase || '1'}-${checkbox.dataset.day}-${checkbox.dataset.exercise}`;
+                progress[key] = checkbox.checked;
+            });
+            localStorage.setItem(getStorageKey(), JSON.stringify(progress));
+            showSaveStatus('✅ 自動保存', 1000);
+        }
+
+        function autoSaveWeights() {
+            const weights = {};
+            const phaseElement = document.getElementById(currentPhase);
+            phaseElement.querySelectorAll('input[type="text"]').forEach(input => {
+                const key = `${input.dataset.phase || '1'}-${input.dataset.day}-${input.dataset.exercise}`;
+                weights[key] = input.value;
+            });
+            localStorage.setItem(getWeightKey(), JSON.stringify(weights));
+            showSaveStatus('✅ 重量保存', 1000);
+        }
+
+        function saveProgress() {
+            autoSave();
+            autoSaveWeights();
+            showSaveStatus('✅ 保存完了！', 2000);
+        }
+
+        function loadProgress() {
+            const phaseElement = document.getElementById(currentPhase);
+            
+            // チェックボックスの読み込み
+            const savedProgress = localStorage.getItem(getStorageKey());
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                phaseElement.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
+                    const key = `${checkbox.dataset.phase || '1'}-${checkbox.dataset.day}-${checkbox.dataset.exercise}`;
+                    if (progress[key]) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+
+            // 重量の読み込み
+            const savedWeights = localStorage.getItem(getWeightKey());
+            if (savedWeights) {
+                const weights = JSON.parse(savedWeights);
+                phaseElement.querySelectorAll('input[type="text"]').forEach(input => {
+                    const key = `${input.dataset.phase || '1'}-${input.dataset.day}-${input.dataset.exercise}`;
+                    if (weights[key]) {
+                        input.value = weights[key];
+                    }
+                });
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('本当に現在のPhaseのチェックと重量をすべてリセットしますか？')) {
+                localStorage.removeItem(getStorageKey());
+                localStorage.removeItem(getWeightKey());
+                
+                const phaseElement = document.getElementById(currentPhase);
+                phaseElement.querySelectorAll('.exercise-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                phaseElement.querySelectorAll('input[type="text"]').forEach(input => {
+                    input.value = '';
+                });
+                showSaveStatus('🔄 リセット完了', 2000);
+            }
+        }
+
+        function showSaveStatus(message = '✅ 保存', duration = 1500) {
+            const status = document.getElementById('saveStatus');
+            status.textContent = message;
+            status.classList.add('show');
+            setTimeout(() => {
+                status.classList.remove('show');
+            }, duration);
+        }
+    </script>
+</body>
+</html>
